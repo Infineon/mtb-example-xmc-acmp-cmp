@@ -2,12 +2,12 @@
 
 This code example demonstrates the usage of the Analog Comparator (ACMP) peripheral of XMC&trade; MCU.
 
-Comparator block (ANACMP-1) is configured to receive divided reference voltage on the positive input (IN-P) pin. You can then modify the voltage to the negative input pin (IN-N) pin (Port 2.6) and watch the user LED toggle according to the change in ANACMP1:CMP_OUT.
+The Comparator block (ANACMP-1) is configured to receive a divided reference voltage on the positive input (IN-P) pin. You can then modify the voltage to the negative input (IN-N) pin (Port 2.6) and watch the user LED toggle according to the change in ANACMP1:CMP_OUT.
 
 
 ## Requirements
 
-- [ModusToolbox® software](https://www.cypress.com/products/modustoolbox-software-environment) v2.3
+- [ModusToolbox&trade; software](https://www.cypress.com/products/modustoolbox-software-environment) v2.3
 - [SEGGER J-Link software](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)
 - Programming Language: C
 - Associated Parts: All [XMC™ MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/) parts
@@ -96,14 +96,12 @@ Various CLI tools include a `-h` option that prints help information to the term
 ## Operation
 
 1. Connect the board to your PC using a micro-USB cable through the debug USB connector.
-
 2. Program the board using Eclipse IDE for ModusToolbox:
 
    1. Select the application project in the Project Explorer.
 
    2. In the **Quick Panel**, scroll down, and click **\<Application Name> Program (JLink)**.
-
-3. Connet VDD to P2.11 (ACMP_REF pin). 
+3. Connect VDD to P2.11 (ACMP_REF pin).
 
 4. Connect GND to P2.6. The LED turns ON.
 
@@ -112,6 +110,18 @@ Various CLI tools include a `-h` option that prints help information to the term
 ## Debugging
 
 You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (JLink)** configuration in the **Quick Panel**. For more details, see the "Program and Debug" section in the [Eclipse IDE for ModusToolbox User Guide](https://www.cypress.com/MTBEclipseIDEUserGuide).
+
+## Design and Implementation
+
+This example shows how the Analog Comparator (ACMP) peripheral of the XMC MCU works. The implementation consists of the following three steps:
+
+1. Selects and configures the Analog Comparator using the `XMC_ACMP_Init()` function
+
+2. Connects the divided reference 'VACMP_REF/2' to the positive input pin 'ACMP1.INP' by using the `XMC_ACMP_EnableReferenceDivider()` function
+
+3. Enables the Analog Comparator by using the `XMC_ACMP_EnableComparator()` function
+
+The LED is toggled based on the reading of the comparator output and modifying the negative input pin (IN-N).
 
 ## Related Resources
 
@@ -144,13 +154,14 @@ Document Title: *CE232579* - *XMC MCU: Analog Comparator*
 | Version | Description of Change |
 | ------- | --------------------- |
 | 1.0.0   | New code example      |
+| 1.0.1   | Updated README        |
 ------
 
 All other trademarks or registered trademarks referenced herein are the property of their respective owners.
 
 ![banner](images/ifx_logo_rgb.jpg)
 
-© 2021 Infineon Technologies AG
+© 2020-2021 Infineon Technologies AG
 
 All Rights Reserved.
 
