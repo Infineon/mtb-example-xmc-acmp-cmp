@@ -44,35 +44,17 @@
 #include "cybsp.h"
 #include "cy_utils.h"
 #include "cy_retarget_io.h"
-#include "xmc_acmp.h"
 
 /*******************************************************************************
 * Defines
 *******************************************************************************/
-
 /* Define macro to enable/disable printing of debug messages */
 #define ENABLE_XMC_DEBUG_PRINT              (0)
-
 
 /* Define macro to set the loop count before printing debug messages */
 #if ENABLE_XMC_DEBUG_PRINT
 #define DEBUG_LOOP_COUNT_MAX                (1U)
 #endif
-
-#define COMP_INST_1     1
-
-/*****************************************************************************
- * GLOBAL DATA
- *****************************************************************************/
-
-/* ACMP Slice configuration */
-XMC_ACMP_CONFIG_t g_acmp_config =
-{
-  .filter_disable = 0U,                         /*Glitch filter is active*/
-  .output_invert = 0U,                          /*No inversion of comparator output*/
-  .hysteresis = XMC_ACMP_HYSTERESIS_20          /*20mV hysteresis to reduce noise sensitivity*/
-};
-
 
 /*******************************************************************************
 * Function Name: main
@@ -110,16 +92,6 @@ int main(void)
     {
         CY_ASSERT(0);
     }
-
-
-    /* Initialize comparator ACMP1 instance */
-    XMC_ACMP_Init(XMC_ACMP0, COMP_INST_1, &g_acmp_config);
-
-    /* Connect divided reference(VACMP_REF/2) to IN-P of ACMP1 */
-    XMC_ACMP_EnableReferenceDivider();
-
-    /* Enable comparator ACMP1 instance */
-    XMC_ACMP_EnableComparator(XMC_ACMP0, COMP_INST_1);
 
     /* Initialize retarget-io to use the debug UART port */
     cy_retarget_io_init(CYBSP_DEBUG_UART_HW);
